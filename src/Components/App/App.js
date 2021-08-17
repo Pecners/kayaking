@@ -64,12 +64,12 @@ class App extends React.Component {
             year:  'numeric'
           })}
         </h3>
-        < WaveForecast forecast={this.state.waves} />
+        < WaveForecast forecast={this.state.waves} isLoaded={this.state.isLoaded}/>
         <h4>Wind Speed</h4>
         <ul id="winds">
           {this.state.winds.map(wind => (
             <>
-              <li>{wind.validTime}: <strong>{Math.round(wind.value / 1.609)} mph</strong></li>
+              <li key={wind.validTime}>{wind.validTime}: <strong>{Math.round(wind.value / 1.609)} mph</strong></li>
             </>
           ))}
         </ul>
