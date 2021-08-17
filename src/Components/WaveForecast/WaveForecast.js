@@ -1,9 +1,10 @@
 import React from 'react';
+import './WaveForecast.css'
 
 class WaveForecast extends React.Component {
   render() {
     return (
-      <div>
+      <div className="WaveForecast">
         <h4>Wave Height Forecast</h4>
         <ul id="waves">
           {this.props.forecast.map(wave => (
