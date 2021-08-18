@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import WaveForecast from '../WaveForecast/WaveForecast';
+import Warning from '../Warning/Warning';
 
 class App extends React.Component {
   constructor(props){
@@ -8,10 +9,19 @@ class App extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
+      warningShown: false,
       waves: [],
       winds: [],
       updateTime: ''
     };
+    this.handleUnderstood = this.handleUnderstood.bind(this);
+  }
+
+  handleUnderstood() {
+    this.setState({
+      warningShown: true
+    });
+    localStorage.setItem('warningShown', true);
   }
 
   componentDidMount() {
@@ -51,10 +61,19 @@ class App extends React.Component {
       }));
     }
     console.log(this.state.waves);
+    let warning;
+    if (!this.state.warningShown) {
+      warning = < Warning onClick={this.handleUnderstood}/>;
+    }
 
     return (
       <div>
-        <h1>Forecast</h1>
+        {warning}
+        <header className="topnav">
+          <nav className="topnav-body">
+            <h1>Southshore YakCast</h1>
+          </nav>
+        </header>
         <h3>
           Forecast Last Updated: {date.toLocaleDateString('en-US', {
             hour: '2-digit',

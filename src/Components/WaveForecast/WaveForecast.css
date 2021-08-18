@@ -1,4 +1,16 @@
 .WaveForecast {
   display: flex;
   flex-direction: column;
+  background-color: #000000;
+  opacity: 0.5;
+  color: white;
+  min-width: 400px;
+  margin: 10px;
+  float: left;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+
+h4 {
+  text-align: center;
 }
