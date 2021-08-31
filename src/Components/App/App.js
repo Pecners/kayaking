@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import WaveForecast from '../WaveForecast/WaveForecast';
-import Warning from '../Warning/Warning';
+import Forecast from '../Forecast/Forecast';
+import Popup from '../Popup/Popup';
 
 class App extends React.Component {
   constructor(props){
@@ -9,19 +9,32 @@ class App extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      warningShown: false,
+      popup: 'disclaimer',
       waves: [],
       winds: [],
       updateTime: ''
     };
-    this.handleUnderstood = this.handleUnderstood.bind(this);
+    this.handlePopup = this.handlePopup.bind(this);
+    this.handleAbout = this.handleAbout.bind(this);
+    this.handleDisclaimer = this.handleDisclaimer.bind(this);
   }
 
-  handleUnderstood() {
+  handlePopup() {
     this.setState({
-      warningShown: true
-    });
-    localStorage.setItem('warningShown', true);
+      popup: null
+    })
+  }
+
+  handleAbout() {
+    this.setState({
+      popup: 'about'
+    })
+  }
+
+  handleDisclaimer() {
+    this.setState({
+      popup: 'disclaimer'
+    })
   }
 
   componentDidMount() {
@@ -61,17 +74,19 @@ class App extends React.Component {
       }));
     }
     console.log(this.state.waves);
-    let warning;
-    if (!this.state.warningShown) {
-      warning = < Warning onClick={this.handleUnderstood}/>;
+    let popup;
+    if (this.state.popup) {
+      popup = < Popup onClick={this.handlePopup} type={this.state.popup}/>;
     }
 
     return (
       <div>
-        {warning}
+        {popup}
         <header className="topnav">
           <nav className="topnav-body">
             <h1>Southshore YakCast</h1>
+            <button onClick={this.handleAbout}>About</button>
+            <button onClick={this.handleDisclaimer}>Disclaimer</button>
           </nav>
         </header>
         <h3>
@@ -83,7 +98,8 @@ class App extends React.Component {
             year:  'numeric'
           })}
         </h3>
-        < WaveForecast forecast={this.state.waves} isLoaded={this.state.isLoaded}/>
+        < Forecast forecast={this.state.waves} isLoaded={this.state.isLoaded} />
+        < Forecast forecast={this.state.winds} isLoaded={this.state.isLoaded} />
         <h4>Wind Speed</h4>
         <ul id="winds">
           {this.state.winds.map(wind => (

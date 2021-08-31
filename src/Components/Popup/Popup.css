@@ -1,4 +1,4 @@
-.warning-outer {
+.popup-outer {
   z-index: 10;
   background-color: rgba(0,0,0,.75);
   position: fixed;
@@ -9,7 +9,7 @@
   left: 0;
 }
 
-.warning-inner {
+.popup-inner {
   background-color: white;
   opacity: .8;
   width: 75%;

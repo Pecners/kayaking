@@ -25,27 +25,38 @@ header {
   background-color: #000000;
   top: 0;
   left: 0;
-  opacity: 0.5;
+  opacity: 0.75;
   width: 100%;
   box-shadow: 0 -2px 10px 0px #777777;
 }
 
 .topnav-body {
   max-width: 100%;
+  text-align: center;
   margin-left: auto;
   margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  color: white;
 }
 
 /* Style the links inside the navigation bar */
-.topnav h1 {
-  color: white;
-  margin-right: auto;
-  margin-left: auto;
+.topnav-body h1 {
+  padding-left: 10px;
+  padding-right: 20px;
   font-size: 20px;
-  text-align: center;
 }
 
-.topnav a, .list a {
+.topnav-body button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+button:hover {
+  opacity: 0.5;
+}
+
+.list a {
   text-decoration: none;
   float: left;
 }
