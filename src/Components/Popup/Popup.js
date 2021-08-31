@@ -16,7 +16,7 @@ class Warning extends React.Component {
       <div className="popup-outer">
         <div className="popup-inner">
           {popup}
-          <button onClick={this.props.onClick}>I Understand</button>
+          <button onClick={this.props.onClick}>Got it!</button>
         </div>
       </div>
     )
