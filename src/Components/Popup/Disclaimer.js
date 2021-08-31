@@ -1,6 +1,6 @@
 import React from 'react';
 
-class DisclaimerContainter extends React.Component {
+class Disclaimer extends React.Component {
   render() {
     return (
       <div>
@@ -12,4 +12,4 @@ class DisclaimerContainter extends React.Component {
   }
 }
 
-export default DisclaimerContainter
+export default Disclaimer;

@@ -1,6 +1,6 @@
 import React from 'react';
-import DisclaimerContainter from './DisclaimerContainter';
-import AboutContainer from './AboutContainer';
+import Disclaimer from './Disclaimer';
+import About from './About';
 import './Popup.css';
 
 class Warning extends React.Component {
@@ -8,9 +8,9 @@ class Warning extends React.Component {
   render() {
     let popup;
     if (this.props.type == 'disclaimer') {
-      popup = < DisclaimerContainter />
+      popup = < Disclaimer />
     } else if (this.props.type == 'about') {
-      popup = < AboutContainer />
+      popup = < About />
     }
     return (
       <div className="popup-outer">
