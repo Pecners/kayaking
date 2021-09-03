@@ -12,6 +12,7 @@ class App extends React.Component {
       popup: 'disclaimer',
       waves: [],
       winds: [],
+      windDir: [],
       updateTime: ''
     };
     this.handlePopup = this.handlePopup.bind(this);
@@ -46,6 +47,7 @@ class App extends React.Component {
             isLoaded: true,
             waves: result.properties.waveHeight.values,
             winds: result.properties.windSpeed.values,
+            windDir: result.properties.windDirection.values,
             updateTime: new Date(result.properties.updateTime)
           });
         },
@@ -107,6 +109,7 @@ class App extends React.Component {
         < ForecastContainer
         id="winds"
         forecast={this.state.winds}
+        windDir={this.state.windDir}
         isLoaded={this.state.isLoaded}
         />
       </div>

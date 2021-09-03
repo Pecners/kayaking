@@ -4,10 +4,21 @@ import Forecast from './Forecast';
 class ForecastContainer extends React.Component {
 
   convert(d) {
-    if (this.props.id == 'waves') {
+    if (this.props.id === 'waves') {
       return Math.round(d * 3.281) + ' ft';
     } else {
       return Math.round(d / 1.609) + ' mph';
+    }
+  }
+
+  windDir(d) {
+    let style;
+    if (this.props.windDir) {
+      style = `{transform: rotate(${this.props.windDir[0].value}deg);}`;
+      console.log(`Style: ${style}`);
+      return '\u2191';
+    } else {
+      return '';
     }
   }
 
@@ -24,7 +35,7 @@ class ForecastContainer extends React.Component {
       let converted = undefined;
       if (period.includes('D')) {
         days = parseInt(period.substring(0, period.lastIndexOf('D')));
-      if (this.props.id == 'winds') {
+      if (this.props.id === 'winds') {
           converted = this.convert(data[0].value) + ' mph';
         } else {
           converted =  this.convert(data[0].value) + ' ft';
@@ -38,8 +49,8 @@ class ForecastContainer extends React.Component {
 
   makeList(d) {
     let limited;
-    if (this.props.forecast.length > 12) {
-      limited = this.props.forecast.slice(0, 12);
+    if (this.props.forecast.length > 10) {
+      limited = this.props.forecast.slice(0, 10);
     } else {
       limited = this.props.forecast;
     }
@@ -59,8 +70,7 @@ class ForecastContainer extends React.Component {
 
   render() {
     let heading = '';
-    let listElement = undefined;
-    if (this.props.id == 'waves') {
+    if (this.props.id === 'waves') {
       heading = 'Wave Height Forecast';
 
     } else {
