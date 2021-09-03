@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Forecast from '../Forecast/Forecast';
+import ForecastContainer from '../Forecast/ForecastContainer';
 import Popup from '../Popup/Popup';
 
 class App extends React.Component {
@@ -98,16 +98,17 @@ class App extends React.Component {
             year:  'numeric'
           })}
         </h3>
-        < Forecast forecast={this.state.waves} isLoaded={this.state.isLoaded} />
-        < Forecast forecast={this.state.winds} isLoaded={this.state.isLoaded} />
-        <h4>Wind Speed</h4>
-        <ul id="winds">
-          {this.state.winds.map(wind => (
-            <>
-              <li key={wind.validTime}>{wind.validTime}: <strong>{Math.round(wind.value / 1.609)} mph</strong></li>
-            </>
-          ))}
-        </ul>
+        < ForecastContainer
+        id="waves"
+        forecast={this.state.waves}
+        isLoaded={this.state.isLoaded}
+        heading="Wave Height Forecast"
+        />
+        < ForecastContainer
+        id="winds"
+        forecast={this.state.winds}
+        isLoaded={this.state.isLoaded}
+        />
       </div>
     );
   }
