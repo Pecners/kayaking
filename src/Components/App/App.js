@@ -61,17 +61,22 @@ class App extends React.Component {
       if (p.includes('D')) {
         days = parseInt(period.substring(0, period.lastIndexOf('D')));
       }
-      let fullPeriod = counter + hours + (days * 24);
+      let isFirst = true;
+      let currentPeriod = hours + (days * 24);
+      let fullPeriod = counter + currentPeriod;
       //console.log(`Full period: ${fullPeriod}`);
       let startTime = new Date(p.substring(0,
       p.lastIndexOf('/')));
       let newTime;
       let newObject = [];
       //console.log(`Start time: ${startTime.addHours(24)}`);
+      /* For loop iterates for all hours represented
+      by the period */
       for (var i = counter; i < fullPeriod; i++) {
         let toAdd;
-        if (i == 0) {
+        if (isFirst) {
           toAdd = 0;
+          isFirst = false;
         } else {
           toAdd = 1;
         }
@@ -89,7 +94,10 @@ class App extends React.Component {
             })
           };
           //console.log(convertedObject[i]);
+
       }
+      console.log(`Full period: ${fullPeriod}`);
+      console.log(`Counter: ${counter}`);
       counter = fullPeriod;
     });
     //console.log(`Period covers the next ${counter} hours.`);
