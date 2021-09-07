@@ -22,7 +22,6 @@ class ForecastContainer extends React.Component {
     }
   }
 
-
   handlePeriod(data) {
     if (this.props.isLoaded) {
       console.log(data[0].validTime);
@@ -47,10 +46,21 @@ class ForecastContainer extends React.Component {
     }
   }
 
+  handleDate(dateString) {
+    const convertedDate = new Date(dateString);
+    return convertedDate.toLocaleDateString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      day:   'numeric',
+      month: 'short',
+      year:  'numeric'
+    });
+  }
+
   makeList(d) {
     let limited;
-    if (this.props.forecast.length > 10) {
-      limited = this.props.forecast.slice(0, 10);
+    if (this.props.forecast.length > 20) {
+      limited = this.props.forecast.slice(0, 20);
     } else {
       limited = this.props.forecast;
     }

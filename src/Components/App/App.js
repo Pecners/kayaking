@@ -38,6 +38,66 @@ class App extends React.Component {
     })
   }
 
+  normalize(d) {
+
+    Date.prototype.addHours = function(h) {
+      this.setMilliseconds(this.getMilliseconds() + (h*60*60*1000));
+      return this;
+    };
+
+    let counter = 0;
+    let convertedObject = [];
+    let currentHour = new Date().getHours();
+
+    d.map((item) => {
+      let p = item.validTime;
+      let period = p.substring(
+        p.lastIndexOf('P') + 1,
+        p.length
+      );
+      let days = 0;
+      let hours = parseInt(period.substring(period.lastIndexOf('T') + 1,
+                           period.lastIndexOf('H')));
+      if (p.includes('D')) {
+        days = parseInt(period.substring(0, period.lastIndexOf('D')));
+      }
+      let fullPeriod = counter + hours + (days * 24);
+      //console.log(`Full period: ${fullPeriod}`);
+      let startTime = new Date(p.substring(0,
+      p.lastIndexOf('/')));
+      let newTime;
+      let newObject = [];
+      //console.log(`Start time: ${startTime.addHours(24)}`);
+      for (var i = counter; i < fullPeriod; i++) {
+        let toAdd;
+        if (i == 0) {
+          toAdd = 0;
+        } else {
+          toAdd = 1;
+        }
+        newTime = startTime.addHours(toAdd);
+        //console.log(newTime);
+          convertedObject[i] = {
+            index: i,
+            value: item.value,
+            validTime: newTime.toLocaleDateString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
+              day:   'numeric',
+              month: 'short',
+              year:  'numeric'
+            })
+          };
+          //console.log(convertedObject[i]);
+      }
+      counter = fullPeriod;
+    });
+    //console.log(`Period covers the next ${counter} hours.`);
+    //console.log(convertedObject);
+
+    return convertedObject;
+  }
+
   componentDidMount() {
     fetch("https://api.weather.gov/gridpoints/MKX/90,62")
       .then(res => res.json())
@@ -45,9 +105,9 @@ class App extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            waves: result.properties.waveHeight.values,
-            winds: result.properties.windSpeed.values,
-            windDir: result.properties.windDirection.values,
+            waves: this.normalize(result.properties.waveHeight.values),
+            winds: this.normalize(result.properties.windSpeed.values),
+            windDir: this.normalize(result.properties.windDirection.values),
             updateTime: new Date(result.properties.updateTime)
           });
         },
@@ -69,13 +129,13 @@ class App extends React.Component {
     let date = new Date();
     if (this.state.updateTime instanceof Date) {
       date = this.state.updateTime;
-      console.log(date.toLocaleDateString('en-US', {
+      /* console.log(date.toLocaleDateString('en-US', {
         day:   'numeric',
         month: 'short',
         year:  'numeric',
-      }));
+      })); */
     }
-    console.log(this.state.waves);
+    //console.log(this.state.waves);
     let popup;
     if (this.state.popup) {
       popup = < Popup onClick={this.handlePopup} type={this.state.popup}/>;
