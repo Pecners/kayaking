@@ -9,7 +9,7 @@ class Warning extends React.Component {
     let popup;
     if (this.props.type == 'disclaimer') {
       popup = < Disclaimer />
-    } else if (this.props.type == 'about') {
+    } else if (this.props.type === 'about') {
       popup = < About />
     }
     return (
