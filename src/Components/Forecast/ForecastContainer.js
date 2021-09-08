@@ -69,7 +69,6 @@ class ForecastContainer extends React.Component {
         {limited.map(item => (
           <>
             <li key={item.validTime}>{item.validTime}: <strong>{this.convert(item.value)}</strong>
-              {console.log(typeof item.validTime)}
             </li>
           </>
         ))}

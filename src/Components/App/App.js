@@ -48,6 +48,7 @@ class App extends React.Component {
     let counter = 0;
     let convertedObject = [];
     let currentHour = new Date().getHours();
+    const now = new Date();
 
     d.map((item) => {
       let p = item.validTime;
@@ -81,19 +82,28 @@ class App extends React.Component {
           toAdd = 1;
         }
         newTime = startTime.addHours(toAdd);
-        //console.log(newTime);
-          convertedObject[i] = {
-            index: i,
-            value: item.value,
-            validTime: newTime.toLocaleDateString('en-US', {
-              hour: '2-digit',
-              minute: '2-digit',
-              day:   'numeric',
-              month: 'short',
-              year:  'numeric'
-            })
-          };
-          //console.log(convertedObject[i]);
+        let isFuture;
+        if (now.getMilliseconds() - newTime.getMilliseconds() < 0) {
+          console.log(i + 'true');
+          isFuture = true;
+        } else {
+          isFuture = false;
+          console.log(i + 'false');
+        }
+        //console.log(`Now: ${now}\nNew time: ${newTime}`);
+          //console.log(newTime);
+            convertedObject[i] = {
+              index: i,
+              value: item.value,
+              validTime: newTime.toLocaleDateString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                day:   'numeric',
+                month: 'short',
+                year:  'numeric'
+              }),
+              isFuture: isFuture
+            };
 
       }
       console.log(`Full period: ${fullPeriod}`);
@@ -102,8 +112,8 @@ class App extends React.Component {
     });
     //console.log(`Period covers the next ${counter} hours.`);
     //console.log(convertedObject);
-
-    return convertedObject;
+    const finalObject = convertedObject.filter(item => item.isFuture);
+    return finalObject;
   }
 
   componentDidMount() {
