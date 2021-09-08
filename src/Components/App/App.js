@@ -82,14 +82,7 @@ class App extends React.Component {
           toAdd = 1;
         }
         newTime = startTime.addHours(toAdd);
-        let isFuture;
-        if (now.getMilliseconds() - newTime.getMilliseconds() < 0) {
-          console.log(i + 'true');
-          isFuture = true;
-        } else {
-          isFuture = false;
-          console.log(i + 'false');
-        }
+
         //console.log(`Now: ${now}\nNew time: ${newTime}`);
           //console.log(newTime);
             convertedObject[i] = {
@@ -102,7 +95,6 @@ class App extends React.Component {
                 month: 'short',
                 year:  'numeric'
               }),
-              isFuture: isFuture
             };
 
       }
@@ -112,8 +104,7 @@ class App extends React.Component {
     });
     //console.log(`Period covers the next ${counter} hours.`);
     //console.log(convertedObject);
-    const finalObject = convertedObject.filter(item => item.isFuture);
-    return finalObject;
+    return convertedObject;
   }
 
   componentDidMount() {

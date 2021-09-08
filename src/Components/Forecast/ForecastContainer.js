@@ -59,10 +59,10 @@ class ForecastContainer extends React.Component {
 
   makeList(d) {
     let limited;
-    if (this.props.forecast.length > 20) {
-      limited = this.props.forecast.slice(0, 20);
+    if (d.length > 20) {
+      limited = d.slice(0, 20);
     } else {
-      limited = this.props.forecast;
+      limited = d;
     }
     return(
       <ul id={this.props.id}>
