@@ -51,28 +51,32 @@ class App extends React.Component {
     const now = new Date();
 
     d.map((item) => {
+      // Extract period
       let p = item.validTime;
       let period = p.substring(
         p.lastIndexOf('P') + 1,
         p.length
       );
+
+      // Determine total hours of period
       let days = 0;
       let hours = parseInt(period.substring(period.lastIndexOf('T') + 1,
                            period.lastIndexOf('H')));
       if (p.includes('D')) {
         days = parseInt(period.substring(0, period.lastIndexOf('D')));
       }
-      let isFirst = true;
       let currentPeriod = hours + (days * 24);
       let fullPeriod = counter + currentPeriod;
       //console.log(`Full period: ${fullPeriod}`);
       let startTime = new Date(p.substring(0,
       p.lastIndexOf('/')));
       let newTime;
-      let newObject = [];
-      //console.log(`Start time: ${startTime.addHours(24)}`);
+
+      let isFirst = true;
+
       /* For loop iterates for all hours represented
       by the period */
+
       for (var i = counter; i < fullPeriod; i++) {
         let toAdd;
         if (isFirst) {
@@ -81,6 +85,7 @@ class App extends React.Component {
         } else {
           toAdd = 1;
         }
+
         newTime = startTime.addHours(toAdd);
 
         //console.log(`Now: ${now}\nNew time: ${newTime}`);
@@ -98,13 +103,15 @@ class App extends React.Component {
             };
 
       }
-      console.log(`Full period: ${fullPeriod}`);
-      console.log(`Counter: ${counter}`);
+      //console.log(`Full period: ${fullPeriod}`);
+      //console.log(`Counter: ${counter}`);
       counter = fullPeriod;
     });
+
     //console.log(`Period covers the next ${counter} hours.`);
-    //console.log(convertedObject);
-    return convertedObject;
+    //console.log(`diff: ${n - f < 0}`);
+    const filteredObject = convertedObject.filter(item => (now.getTime() - new Date(item.validTime).getTime() < 0));
+    return filteredObject;
   }
 
   componentDidMount() {

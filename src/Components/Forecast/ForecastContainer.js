@@ -15,7 +15,6 @@ class ForecastContainer extends React.Component {
     let style;
     if (this.props.windDir) {
       style = `{transform: rotate(${this.props.windDir[0].value}deg);}`;
-      console.log(`Style: ${style}`);
       return '\u2191';
     } else {
       return '';
@@ -24,7 +23,6 @@ class ForecastContainer extends React.Component {
 
   handlePeriod(data) {
     if (this.props.isLoaded) {
-      console.log(data[0].validTime);
       let periodTime = data[0].validTime;
       let period = periodTime.substring(
         periodTime.lastIndexOf('P') + 1,
